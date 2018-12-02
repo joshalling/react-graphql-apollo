@@ -3,7 +3,7 @@ import { Query } from 'react-apollo';
 import ErrorMessage from '../ErrorMessage';
 import Loading from '../Loading';
 import RepositoryList from '../Repository';
-import { GET_REPOSITORIES_OF_CURRENT_USER } from './query';
+import { GET_REPOSITORIES_OF_CURRENT_USER } from '../../graphql/query';
 
 const Profile = () => {
   return (

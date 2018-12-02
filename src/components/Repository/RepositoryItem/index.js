@@ -2,7 +2,7 @@ import React from 'react';
 import { Mutation } from 'react-apollo';
 import Button from '../../Button';
 import Link from '../../Link';
-import { STAR_REPOSITORY, UNSTAR_REPOSITORY } from '../mutation';
+import { STAR_REPOSITORY, UNSTAR_REPOSITORY } from '../../../graphql/mutation';
 import '../style.css';
 
 const RepositoryItem = ({
