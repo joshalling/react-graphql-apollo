@@ -2,7 +2,8 @@ import React from 'react';
 import { Mutation } from 'react-apollo';
 import Button from '../../Button';
 import Link from '../../Link';
-import { STAR_REPOSITORY, UNSTAR_REPOSITORY } from '../../../graphql/mutation';
+import { STAR_ADD, STAR_REMOVE } from '../../../graphql/mutation';
+import { starMutationUpdate } from '../../../graphql/update';
 import '../style.css';
 
 const RepositoryItem = ({
@@ -24,18 +25,23 @@ const RepositoryItem = ({
       </h2>
       <div>
         {!viewerHasStarred ? (
-          <Mutation mutation={STAR_REPOSITORY} variables={{ id }}>
+          <Mutation
+            mutation={STAR_ADD}
+            variables={{ id }}
+            update={starMutationUpdate}
+          >
             {(addStar, { data, loading, error }) => (
-              <Button
-                className="RepositoryItem-title-action"
-                onClick={addStar}
-              >
+              <Button className="RepositoryItem-title-action" onClick={addStar}>
                 Star {stargazers.totalCount}
               </Button>
             )}
           </Mutation>
         ) : (
-          <Mutation mutation={UNSTAR_REPOSITORY} variables={{ id }}>
+          <Mutation
+            mutation={STAR_REMOVE}
+            variables={{ id }}
+            update={starMutationUpdate}
+          >
             {(removeStar, { data, loading, error }) => (
               <Button
                 className="RepositoryItem-title-action"
@@ -55,9 +61,7 @@ const RepositoryItem = ({
       />
       <div className="RepositoryItem-description-details">
         <div>
-          {primaryLanguage && (
-            <span>Language: {primaryLanguage.name}</span>
-          )}
+          {primaryLanguage && <span>Language: {primaryLanguage.name}</span>}
         </div>
         <div>
           {owner && (

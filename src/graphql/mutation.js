@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-export const STAR_REPOSITORY = gql`
+export const STAR_ADD = gql`
   mutation($id: ID!) {
     addStar(input: { starrableId: $id }) {
       starrable {
@@ -14,7 +14,7 @@ export const STAR_REPOSITORY = gql`
   }
 `;
 
-export const UNSTAR_REPOSITORY = gql`
+export const STAR_REMOVE = gql`
   mutation($id: ID!) {
     removeStar(input: { starrableId: $id }) {
       starrable {
