@@ -4,7 +4,10 @@ import Button from '../../Button';
 import Link from '../../Link';
 import { STAR_ADD, STAR_REMOVE } from '../../../graphql/mutation';
 import { starMutationUpdate } from '../../../graphql/update';
-import { starMutationResponse } from '../../../graphql/optimisticResponse';
+import {
+  starAddResponse,
+  starRemoveResponse
+} from '../../../graphql/optimisticResponse';
 import '../style.css';
 
 const RepositoryItem = ({
@@ -30,13 +33,7 @@ const RepositoryItem = ({
             mutation={STAR_ADD}
             variables={{ id }}
             update={starMutationUpdate}
-            optimisticResponse={{
-              addStar: starMutationResponse({
-                id,
-                totalCount: stargazers.totalCount + 1,
-                viewerHasStarred
-              })
-            }}
+            optimisticResponse={starAddResponse({ id, stargazers })}
           >
             {(addStar, { data, loading, error }) => (
               <Button className="RepositoryItem-title-action" onClick={addStar}>
@@ -49,13 +46,7 @@ const RepositoryItem = ({
             mutation={STAR_REMOVE}
             variables={{ id }}
             update={starMutationUpdate}
-            optimisticResponse={{
-              removeStar: starMutationResponse({
-                id,
-                totalCount: stargazers.totalCount - 1,
-                viewerHasStarred
-              })
-            }}
+            optimisticResponse={starRemoveResponse({ id, stargazers })}
           >
             {(removeStar, { data, loading, error }) => (
               <Button
